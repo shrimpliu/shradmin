@@ -11,11 +11,11 @@ export default (authClient) => ({
     }
   },
   effects: {
-    async login(data, getState) {
+    async login({ params, translate }, getState) {
       actions.loading.set(true);
       try {
-        const info = await authClient(AUTH_LOGIN, data);
-        message.success("登录成功");
+        const info = await authClient(AUTH_LOGIN, params);
+        message.success(translate("auth.login_success"));
         actions.auth.set(info);
         actions.routing.push("/");
       } catch (error) {

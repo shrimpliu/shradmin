@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Card, Form, Row, Input, Button } from 'antd';
 import { actions, connect } from 'mirrorx';
 const FormItem = Form.Item;
@@ -19,31 +20,33 @@ const styles = {
   }
 };
 
-const Title = () => (
+const Title = ({translate}) => (
   <div>
-    <span>登录</span>
+    <span>{translate("auth.login")}</span>
   </div>
 );
 
 class Login extends Component {
 
   handleSubmit = () => {
+    const { translate } = this.context;
     const { form: { validateFieldsAndScroll } } = this.props;
     validateFieldsAndScroll((errors, values) => {
       if (errors) {
         return;
       }
-      actions.auth.login(values);
+      actions.auth.login({params: values, translate});
     });
   };
 
   render() {
 
     const { loading, form: { getFieldDecorator } } = this.props;
+    const { translate } = this.context;
 
     return(
       <div style={styles.container}>
-        <Card title={<Title/>} style={styles.card}>
+        <Card title={<Title translate={translate}/>} style={styles.card}>
           <form>
             <FormItem hasFeedback>
               {getFieldDecorator('username', {
@@ -64,7 +67,9 @@ class Login extends Component {
               )}
             </FormItem>
             <Row>
-              <Button size="large" type="primary" loading={loading} onClick={this.handleSubmit} style={styles.button}>登录</Button>
+              <Button size="large" type="primary" loading={loading} onClick={this.handleSubmit} style={styles.button}>
+                {translate("auth.login")}
+              </Button>
             </Row>
           </form>
         </Card>
@@ -72,10 +77,11 @@ class Login extends Component {
     )
 
   }
-
 }
 
-
+Login.contextTypes = {
+  translate: PropTypes.func
+};
 
 export default connect(({loading}) => ({
   loading
