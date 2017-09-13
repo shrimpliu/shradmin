@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Router, Switch, Route, render, connect, model as registerModel } from 'mirrorx';
 import { LocaleProvider } from 'antd';
 import locales from 'antd/lib/locale-provider';
-import { Layout, Login } from './pages';
+import { Layout, Login, Menu, Dashboard } from './pages';
+import Routes from './Routes';
 import models from './models';
 import { getAuthModel } from './auth';
 import { TranslationProvider, getLocaleModel } from './i18n';
@@ -15,7 +16,7 @@ models.forEach(model => {
 
 class Admin extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     const { children, authClient, language } = this.props;
     registerModel(getAuthModel(authClient));
     registerModel(getLocaleModel(language));
@@ -27,16 +28,27 @@ class Admin extends Component {
 
   render() {
 
-    const { locale, messages } = this.props;
+    const { locale, messages, appLayout, title, menu, dashboard, children } = this.props;
+
+    const models = React.Children.map(children, ({props}) => props) || [];
 
     return (
       <LocaleProvider locale={locales[locale]}>
         <TranslationProvider locale={locale} messages={messages}>
           <Router>
-            <div>
+            <div className="shradmin">
               <Switch>
                 <Route exact path="/login" component={Login}/>
-                <Route path="/" component={Layout}/>
+                <Route path="/" render={() => React.createElement(appLayout || Layout, {
+                  menu: React.createElement(menu || Menu, {
+                    models,
+                  }),
+                  routes: React.createElement(Routes, {
+                    models,
+                    dashboard: dashboard || Dashboard,
+                  }),
+                  title,
+                })} />
               </Switch>
             </div>
           </Router>
@@ -49,12 +61,17 @@ class Admin extends Component {
 Admin.defaultProps = {
   locale: "zh",
   messages: {},
+  title: "Shradmin",
 };
 
 Admin.propTypes = {
+  appLayout: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   authClient: PropTypes.func.isRequired,
   language: PropTypes.string,
   messages: PropTypes.object,
+  title: PropTypes.node,
+  menu: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  dashboard: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 };
 
 export default connect(({locale}) => ({

@@ -1,0 +1,28 @@
+.shradmin .container {
+    min-height: 100vh;
+}
+
+.shradmin .header {
+    background: #fff;
+    padding: 0;
+    border-bottom: thin solid #d9d9d9;
+    line-height: 64px;
+}
+
+.shradmin .sider {
+    background: #fff;
+}
+
+.shradmin .content {
+    margin: 0px 16px;
+}
+
+.shradmin .body {
+    padding: 24px;
+    background: #fff;
+    min-height: 90vh;
+}
+
+.shradmin .footer {
+    text-align: center;
+}

@@ -1,6 +1,6 @@
 import { actions } from 'mirrorx';
 import { message } from 'antd';
-import { AUTH_LOGIN } from './types';
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK } from './types';
 
 export default (authClient) => ({
   name: "auth",
@@ -24,6 +24,18 @@ export default (authClient) => ({
       } finally {
         actions.loading.set(false);
       }
-    }
+    },
+    async logout() {
+      await authClient(AUTH_LOGOUT);
+      actions.routing.push("/login");
+    },
+    async check() {
+      try {
+        await authClient(AUTH_CHECK);
+      } catch (error) {
+        actions.auth.logout();
+        actions.routing.push("/login");
+      }
+    },
   }
 });
