@@ -13,6 +13,7 @@ export default {
     edit: "编辑",
     show: "详情",
     remove: "删除",
+    refresh: "刷新",
   },
   models: {
     users: {

@@ -13,6 +13,7 @@ export default {
     edit: "Edit",
     show: "Show",
     remove: "Remove",
+    refresh: "Refresh",
   },
   models: {
     users: {
