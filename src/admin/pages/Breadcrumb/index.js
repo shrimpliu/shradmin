@@ -29,7 +29,7 @@ const getRoutes = ({ pathname }) => {
   const entity = keys[1];
   const action = keys[2];
   const routes = [];
-  if (entity) {
+  if (entity && entity !== "login") {
     routes.push({
       name: `models.${entity}.name`,
       url: keys.length > 2 ? `/${entity}` : ""
