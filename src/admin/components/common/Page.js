@@ -8,10 +8,11 @@ const loadingStyle = {
 };
 
 const Page = ({ children, loading, style }) => (
-  <div style={loading ? { ...style, ...loadingStyle } : style}>
-    {loading && <Spin/>}
-    {children}
-  </div>
+  <Spin spinning={loading}>
+    <div style={loading ? { ...style, ...loadingStyle } : style}>
+      {children}
+    </div>
+  </Spin>
 );
 
 export default connect(({loading}) => ({

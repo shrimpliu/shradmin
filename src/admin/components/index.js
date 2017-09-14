@@ -1,7 +1,4 @@
-import Page from './Page';
-import List from './List';
-
-export {
-  Page,
-  List,
-};
+export * from './common';
+export * from './buttons';
+export * from './lists';
+export * from './fields';
