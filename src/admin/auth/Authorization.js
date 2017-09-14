@@ -5,7 +5,6 @@ import { actions } from 'mirrorx';
 class Authorization extends Component {
 
   componentWillMount() {
-    console.log("mount");
     actions.auth.check();
   }
 
