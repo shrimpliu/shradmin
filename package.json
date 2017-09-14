@@ -10,7 +10,8 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.13",
-    "recompose": "^0.25.0"
+    "recompose": "^0.25.0",
+    "superagent": "^3.6.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
