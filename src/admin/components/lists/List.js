@@ -25,7 +25,7 @@ class List extends Component {
 
   render() {
 
-    const { actions, model, children, data } = this.props;
+    const { actions, model, children, data, translate } = this.props;
 
     return (
       <Page>
@@ -36,6 +36,7 @@ class List extends Component {
         {children && React.cloneElement(children, {
           data,
           model,
+          translate,
         })}
       </Page>
     );
