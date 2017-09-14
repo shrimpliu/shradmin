@@ -17,11 +17,11 @@ models.forEach(model => {
 class Admin extends Component {
 
   componentWillMount() {
-    const { children, authClient, language } = this.props;
+    const { children, authClient, restClient, language } = this.props;
     registerModel(getAuthModel(authClient));
     registerModel(getLocaleModel(language));
     React.Children.forEach(children, ({ props }) => {
-      registerResourceModel(props.name);
+      registerResourceModel(props.name, restClient);
     });
     render();
   }
@@ -72,6 +72,7 @@ Admin.propTypes = {
   title: PropTypes.node,
   menu: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   dashboard: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  restClient: PropTypes.func,
 };
 
 export default connect(({locale}) => ({

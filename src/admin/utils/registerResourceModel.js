@@ -1,15 +1,19 @@
-import mirror from 'mirrorx';
+import mirror, { actions } from 'mirrorx';
+import { GET_LIST } from '../rest'
 
-export default (model) => {
+export default (model, restClient) => {
   mirror.model({
     name: model,
     initialState: {
       list: [],
       filter: {},
-      sort: {},
+      sort: {
+        _sort: null,
+        _order: "asc",
+      },
       pagination: {
-        page: 1,
-        perPage: 20,
+        _page: 1,
+        _limit: 20,
       },
     },
     reducers: {
@@ -18,10 +22,19 @@ export default (model) => {
           ...state,
           list: [
             ...state.list,
-            data
+            ...data
           ]
         };
       }
     },
+    effects: {
+      async getList(params) {
+        actions.loading.set(true);
+        const { data } = await restClient(GET_LIST, model, params);
+        actions[model].add(data);
+        actions.loading.set(false);
+      },
+    }
+
   });
 };
