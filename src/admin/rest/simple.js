@@ -6,8 +6,7 @@ const fetch = (url, type, model, params, headers) => {
 
   switch (type) {
     case GET_LIST:
-      const { _page, _limit } = params.pagination || {};
-      const { _sort, _order } = params.sort || {};
+      const { _page, _limit, _sort, _order } = params;
       const query = {
         _page,
         _limit,
@@ -25,11 +24,12 @@ const fetch = (url, type, model, params, headers) => {
 };
 
 const formatResponse = (response, type) => {
-  const { body } = response;
+  const { body, headers } = response;
   switch (type) {
     default:
       return {
-        data: body
+        data: body,
+        total: parseInt(headers['x-total-count'].split('/').pop(), 10),
       };
   }
 };
