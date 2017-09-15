@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'antd';
 
-const DataTable = ({ model, data, children, translate, rowKey = "id", params, total, changePage, ...rest }) => {
+const DataTable = ({ model, data, children, translate, rowKey, params, total, changePage, ...rest }) => {
 
   const columns = React.Children.map(children, (child, index) => ({
     title: translate(`models.${model}.fields.${child.props.name}`),
@@ -29,6 +30,23 @@ const DataTable = ({ model, data, children, translate, rowKey = "id", params, to
     </div>
   );
 
+};
+
+DataTable.defaultProps = {
+  data: [],
+  rowKey: "id",
+  params: {},
+  total: 0,
+};
+
+DataTable.propTypes = {
+  model: PropTypes.string,
+  data: PropTypes.array,
+  translate: PropTypes.func,
+  rowKey: PropTypes.string,
+  params: PropTypes.object,
+  total: PropTypes.number,
+  changePage: PropTypes.func,
 };
 
 export default DataTable;

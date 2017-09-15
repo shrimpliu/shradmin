@@ -74,10 +74,18 @@ class List extends Component {
 
 List.propTypes = {
   actions: PropTypes.element,
+  model: PropTypes.string,
+  data: PropTypes.array,
+  translate: PropTypes.func,
+  params: PropTypes.object,
+  total: PropTypes.number,
 };
 
 List.defaultProps = {
-  actions: <Actions/>
+  actions: <Actions/>,
+  data: [],
+  params: {},
+  total: 0,
 };
 
 const getQuery = (search) => {
