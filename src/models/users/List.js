@@ -4,8 +4,8 @@ import { List, DataTable, TextField } from '../../admin';
 export default () => (
   <List model="users">
     <DataTable>
-      <TextField name="id"/>
-      <TextField name="name"/>
+      <TextField name="id" />
+      <TextField name="name" sorter={true} />
       <TextField name="username"/>
       <TextField name="email"/>
       <TextField name="phone"/>

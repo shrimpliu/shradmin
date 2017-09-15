@@ -6,7 +6,7 @@ export default () => (
   <List model="posts">
     <DataTable>
       <TextField name="id" />
-      <TextField name="userId" />
+      <TextField name="userId" sorter={true} />
       <TextField name="title" />
       <TextField name="body" render={value => truncate(value)} />
     </DataTable>
