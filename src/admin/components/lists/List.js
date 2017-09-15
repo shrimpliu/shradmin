@@ -27,21 +27,21 @@ class List extends Component {
     }
   }
 
-  getRequestParams() {
+  getRequestParams = () => {
     const { query, params } = this.props;
     return { ...params, ...query };
-  }
+  };
 
-  updateData(requestParams) {
+  updateData = (requestParams) => {
     const { model } = this.props;
     actions[model].getList(requestParams);
-  }
+  };
 
-  setParams(newParams) {
+  setParams = (newParams) => {
     const { query, params, location } = this.props;
     const requestParams = { ...params, ...query, ...newParams };
     actions.routing.push({ ...location, search: `?${stringify(requestParams)}` });
-  }
+  };
 
   refresh = (event) => {
     event.stopPropagation();
@@ -65,7 +65,7 @@ class List extends Component {
           translate,
           params,
           total,
-          changePage: (_page) => this.setParams({ _page })
+          setParams: this.setParams,
         })}
       </Page>
     );

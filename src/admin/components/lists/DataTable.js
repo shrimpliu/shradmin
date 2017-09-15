@@ -2,16 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'antd';
 
-const DataTable = ({ model, data, children, translate, rowKey, params, total, changePage, ...rest }) => {
+const DataTable = ({ model, data, children, translate, rowKey, params, total, setParams, ...rest }) => {
 
-  const columns = React.Children.map(children, (child, index) => ({
-    title: translate(`models.${model}.fields.${child.props.name}`),
-    dataIndex: child.props.name,
-    key: index,
-    render: (value, record) => React.cloneElement(child, {
-      record
+  const columns = React.Children.map(children, (child, index) => {
+
+    const { name, ...rest } = child.props;
+
+    return ({
+      title: translate(`models.${model}.fields.${name}`),
+      dataIndex: name,
+      key: index,
+      render: (value, record) => React.cloneElement(child, {
+        record
+      }),
+      ...rest,
     })
-  }));
+  });
+
+  const handleChange = (pagination, filters, sorter) => {
+    const newParams = {
+      _page: pagination.current,
+      _limit: pagination.pageSize,
+    };
+    if (sorter.field && sorter.order !== false) {
+      newParams._sort = sorter.field;
+      newParams._order = sorter.order === "descend" ? "desc" : "asc";
+    } else {
+      newParams._sort = null;
+      newParams._order = "asc";
+    }
+    setParams(newParams);
+  };
 
   return (
     <div style={{margin: "16px 0"}}>
@@ -20,11 +41,11 @@ const DataTable = ({ model, data, children, translate, rowKey, params, total, ch
         rowKey={rowKey}
         dataSource={data}
         columns={columns}
+        onChange={handleChange}
         pagination={{
           total,
           current: parseInt(params._page, 10),
           pageSize: parseInt(params._limit, 10),
-          onChange: changePage,
         }}
       />
     </div>
