@@ -25,9 +25,9 @@ const AppBreadcrumb = ({ translate, routes }) => (
 );
 
 const getRoutes = ({ pathname }) => {
-  const keys = split(pathname, "/", 3);
+  const keys = split(pathname, "/", 4);
   const entity = keys[1];
-  const action = keys[2];
+  let action = keys[2];
   const routes = [];
   if (entity && entity !== "login") {
     routes.push({
@@ -36,10 +36,19 @@ const getRoutes = ({ pathname }) => {
     });
   }
   if (action) {
-    routes.push({
-      name: `actions.${action}`,
-      url: ""
-    });
+    if (action === "create") {
+      routes.push({
+        name: `actions.create`,
+        url: ""
+      });
+    }
+    action = keys[3];
+    if (action) {
+      routes.push({
+        name: `actions.${action}`,
+        url: ""
+      });
+    }
   }
   return routes;
 };
