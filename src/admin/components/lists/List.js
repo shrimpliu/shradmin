@@ -22,7 +22,6 @@ class List extends Component {
   componentWillReceiveProps(nextProps) {
     const { model, query, params } = nextProps;
     if (model !== this.props.model || !isEqual(query, this.props.query)) {
-      actions[model].setListParams(query);
       this.updateData({ ...params, ...query });
     }
   }
@@ -38,9 +37,10 @@ class List extends Component {
   };
 
   setParams = (newParams) => {
-    const { query, params, location } = this.props;
+    const { model, query, params, location } = this.props;
     const requestParams = { ...params, ...query, ...newParams };
-    actions.routing.push({ ...location, search: `?${stringify(requestParams)}` });
+    actions[model].setListParams(requestParams);
+    actions.routing.push({ ...location, search: `?${stringify({...requestParams, _filter: JSON.stringify(requestParams._filter)})}` });
   };
 
   refresh = (event) => {
@@ -51,14 +51,25 @@ class List extends Component {
 
   render() {
 
-    const { actions, model, children, data, translate, params, total } = this.props;
+    const { actions, filters, model, children, data, translate, params, total } = this.props;
+
+    const requestParams = this.getRequestParams();
 
     return (
-      <Page>
-        {actions && React.cloneElement(actions, {
-          model,
-          refresh: this.refresh,
-        })}
+      <Page header={
+        <div>
+          {actions && React.cloneElement(actions, {
+            model,
+            refresh: this.refresh,
+          })}
+          {filters && React.cloneElement(filters, {
+            model,
+            translate,
+            setParams: this.setParams,
+            values: requestParams._filter || {},
+          })}
+        </div>
+      }>
         {children && React.cloneElement(children, {
           data,
           model,
@@ -90,8 +101,8 @@ List.defaultProps = {
 
 const getQuery = (search) => {
   const query = parse(startsWith(search, '?') ? search.substr(1) : search);
-  if (query.filter && isString(query.filter)) {
-    query.filter = JSON.parse(query.filter);
+  if (query._filter && isString(query._filter)) {
+    query._filter = JSON.parse(query._filter);
   }
   return query;
 };

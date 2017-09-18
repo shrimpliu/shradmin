@@ -6,11 +6,11 @@ const DataTable = ({ model, data, children, translate, rowKey, params, total, se
 
   const columns = React.Children.map(children, (child, index) => {
 
-    const { name, ...rest } = child.props;
+    const { source, ...rest } = child.props;
 
     return ({
-      title: translate(`models.${model}.fields.${name}`),
-      dataIndex: name,
+      title: translate(`models.${model}.fields.${source}`),
+      dataIndex: source,
       key: index,
       render: (value, record) => React.cloneElement(child, {
         record
@@ -67,7 +67,7 @@ DataTable.propTypes = {
   rowKey: PropTypes.string,
   params: PropTypes.object,
   total: PropTypes.number,
-  changePage: PropTypes.func,
+  setParams: PropTypes.func,
 };
 
 export default DataTable;
