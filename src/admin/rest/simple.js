@@ -6,13 +6,13 @@ const fetch = (url, type, model, params, headers) => {
 
   switch (type) {
     case GET_LIST:
-      const { _page, _limit, _sort, _order } = params;
+      const { _page, _limit, _sort, _order, _filter } = params;
       const query = {
         _page,
         _limit,
         _sort,
         _order,
-        ...params.filter
+        ..._filter
       };
       return request.get(`${url}/${model}`).set(headers).query(query);
     case GET_ONE:
