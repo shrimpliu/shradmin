@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Spin } from 'antd';
 import { connect } from 'mirrorx';
 
@@ -7,13 +8,22 @@ const loadingStyle = {
   overflow: 'hidden',
 };
 
-const Page = ({ children, loading, style }) => (
-  <Spin spinning={loading}>
-    <div style={loading ? { ...style, ...loadingStyle } : style}>
-      {children}
-    </div>
-  </Spin>
+const Page = ({ children, header, loading, style }) => (
+  <div>
+    { header }
+    <Spin spinning={loading}>
+      <div style={loading ? { ...style, ...loadingStyle } : style}>
+        {children}
+      </div>
+    </Spin>
+  </div>
 );
+
+Page.propTypes = {
+  header: PropTypes.element,
+  loading: PropTypes.bool,
+  style: PropTypes.object,
+};
 
 export default connect(({loading}) => ({
   loading
