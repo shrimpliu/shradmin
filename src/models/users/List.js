@@ -1,15 +1,16 @@
 import React from 'react';
 import { List, DataTable, TextField } from '../../admin';
+import Filters from './Filters';
 
 export default () => (
-  <List model="users">
+  <List model="users" filters={<Filters />}>
     <DataTable>
-      <TextField name="id" />
-      <TextField name="name" sorter={true} />
-      <TextField name="username"/>
-      <TextField name="email"/>
-      <TextField name="phone"/>
-      <TextField name="website"/>
+      <TextField source="id" />
+      <TextField source="name" sorter={true} />
+      <TextField source="username"/>
+      <TextField source="email"/>
+      <TextField source="phone"/>
+      <TextField source="website"/>
     </DataTable>
   </List>
 )
