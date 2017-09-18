@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import get from 'lodash/get';
 
-const TextField = ({ name, record, render }) => (
-  <span>{render(record[name], record)}</span>
+const TextField = ({ source, record, render }) => (
+  <span>{render(get(record, source), record)}</span>
 );
 
 TextField.defaultProps = {
@@ -10,6 +11,8 @@ TextField.defaultProps = {
 };
 
 TextField.propTypes = {
+  source: PropTypes.string.isRequired,
+  record: PropTypes.object,
   render: PropTypes.func,
 };
 
