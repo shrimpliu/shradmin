@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { actions } from 'mirrorx';
 
 class Authorization extends Component {
