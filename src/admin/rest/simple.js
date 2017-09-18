@@ -26,11 +26,17 @@ const fetch = (url, type, model, params, headers) => {
 const formatResponse = (response, type) => {
   const { body, headers } = response;
   switch (type) {
-    default:
+    case GET_LIST:
       return {
         data: body,
         total: parseInt(headers['x-total-count'].split('/').pop(), 10),
       };
+    case GET_ONE:
+      return {
+        data: body,
+      };
+    default:
+      return {};
   }
 };
 
