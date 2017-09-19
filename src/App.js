@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Admin, Model } from './admin';
 import {
-  UserList, UserIcon, UserShow, UserCreate,
+  UserList, UserIcon, UserShow, UserCreate, UserEdit,
   PostList, PostIcon, PostShow,
 } from './models';
 import authClient from './authClient';
@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <Admin authClient={authClient} restClient={restClient} language="zh" messages={messages}>
-        <Model name="users" list={UserList} show={UserShow} create={UserCreate} icon={UserIcon}/>
+        <Model name="users" list={UserList} show={UserShow} create={UserCreate} edit={UserEdit} icon={UserIcon}/>
         <Model name="posts" list={PostList} show={PostShow} icon={PostIcon}/>
       </Admin>
     );
