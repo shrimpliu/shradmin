@@ -14,6 +14,13 @@ export default {
     show: "Show",
     remove: "Remove",
     refresh: "Refresh",
+    save: "Save",
+    cancel: "Cancel",
+  },
+  notification: {
+    created: "Create Success",
+    updated: "Update Success",
+    deleted: "Delete Success",
   },
   models: {
     users: {

@@ -14,6 +14,13 @@ export default {
     show: "详情",
     remove: "删除",
     refresh: "刷新",
+    save: "保存",
+    cancel: "取消",
+  },
+  notification: {
+    created: "创建成功",
+    updated: "更新成功",
+    deleted: "删除成功",
   },
   models: {
     users: {
