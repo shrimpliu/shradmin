@@ -37,6 +37,7 @@ class Edit extends Component {
         noHovering={true}
         extra={React.cloneElement(actions, {
           model,
+          record,
         })} >
         <Spin spinning={loading}>
           {React.cloneElement(children, {

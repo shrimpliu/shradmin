@@ -34,6 +34,7 @@ class Show extends Component {
         noHovering={true}
         extra={React.cloneElement(actions, {
           model,
+          record,
           refresh: this.refresh,
         })} >
         <Spin spinning={loading}>

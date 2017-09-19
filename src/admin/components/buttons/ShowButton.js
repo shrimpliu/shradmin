@@ -4,36 +4,36 @@ import { Button, Popover } from 'antd';
 import { actions } from 'mirrorx';
 import { translate } from '../../i18n';
 
-const EditButton = ({ translate, model, record, simple }) => {
+const ShowButton = ({ translate, model, record, simple }) => {
 
   const buttonProps = {
-    icon: "edit",
+    icon: "eye",
     type: "primary",
     ghost: true,
-    onClick: () => actions.routing.push(`/${model}/${record.id}`)
+    onClick: () => actions.routing.push(`/${model}/${record.id}/show`)
   };
 
   return (
     simple ?
-      <Popover content={translate("actions.edit")}>
+      <Popover content={translate("actions.show")}>
         <Button {...buttonProps}/>
       </Popover> :
       <Button {...buttonProps}>
-        {translate("actions.edit")}
+        {translate("actions.show")}
       </Button>
   );
 };
 
-EditButton.defaultProps = {
+ShowButton.defaultProps = {
   simple: false,
   record: {},
 };
 
-EditButton.propTypes = {
+ShowButton.propTypes = {
   model: PropTypes.string.isRequired,
   record: PropTypes.object,
   translate: PropTypes.func.isRequired,
   simple: PropTypes.bool,
 };
 
-export default translate(EditButton);
+export default translate(ShowButton);
