@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import mapValues from 'lodash/mapValues';
 import { Form, Button } from 'antd';
 const FormItem = Form.Item;
 
@@ -51,7 +52,7 @@ class SimpleForm extends Component {
         ))}
         <FormItem {...buttonLayout}>
           <Button type="primary" htmlType="submit">
-            {translate('actions.create')}
+            {translate('actions.save')}
           </Button>
         </FormItem>
       </Form>
@@ -63,6 +64,11 @@ class SimpleForm extends Component {
 SimpleForm.propTypes = {
   model: PropTypes.string.isRequired,
   save: PropTypes.func,
+  record: PropTypes.object,
 };
 
-export default Form.create()(SimpleForm);
+export default Form.create({
+  mapPropsToFields(props) {
+    return mapValues(props.record || {}, value => ({ value }));
+  },
+})(SimpleForm);
