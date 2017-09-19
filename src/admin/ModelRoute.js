@@ -4,16 +4,20 @@ import { Authorization } from './auth';
 
 const ModelRoute = ({ name, list, create, edit, show, remove }) => {
 
-  const AuthorizationComponent = (component, route) => routeProps => (
+  const AuthorizationComponent = (component, route, model) => routeProps => (
     <Authorization>
-      {React.createElement(component, {...routeProps})}
+      {React.createElement(component, {
+        model,
+        ...routeProps,
+      })}
     </Authorization>
   );
 
   return (
     <Switch>
-      {list && <Route exact path={`/${name}`} render={AuthorizationComponent(list, "list")}/>}
-      {show && <Route exact path={`/${name}/:id/show`} render={AuthorizationComponent(show, "show")}/>}
+      {list && <Route exact path={`/${name}`} render={AuthorizationComponent(list, "list", name)}/>}
+      {show && <Route exact path={`/${name}/:id/show`} render={AuthorizationComponent(show, "show", name)}/>}
+      {create && <Route exact path={`/${name}/create`} render={AuthorizationComponent(create, "create", name)}/>}
     </Switch>
   );
 
