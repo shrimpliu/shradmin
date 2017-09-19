@@ -14,15 +14,10 @@ class FiltersForm extends Component {
     return (
       <Form>
         <Row gutter={16}>
-          {React.Children.map(children, (child, index) => (
+          {React.Children.map(children, ({ props: { source, input, options } }, index) => (
             <Col key={index} span={6}>
-              <FormItem labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} label={translate(`models.${model}.fields.${child.props.source}`)} colon={false}>
-                {getFieldDecorator(child.props.source, child.props.rules || {})(
-                  React.cloneElement(child, {
-                    model,
-                    translate,
-                  })
-                )}
+              <FormItem labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} label={translate(`models.${model}.fields.${source}`)} colon={false}>
+                {getFieldDecorator(source, options)(input)}
               </FormItem>
             </Col>
           ))}

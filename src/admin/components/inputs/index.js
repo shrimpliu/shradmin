@@ -1,5 +1,5 @@
-import TextInput from './TextInput';
+import Input from 'antd/lib/input';
 
 export {
-  TextInput,
+  Input,
 };
