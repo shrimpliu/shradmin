@@ -1,19 +1,20 @@
 import React from 'react';
+import get from 'lodash.get';
 import PropTypes from 'prop-types';
-import get from 'lodash/get';
 
-const TextField = ({ source, record, render }) => (
-  <span>{render(get(record, source), record)}</span>
-);
+const TextField = ({ source, record = {}, render, elStyle }) => {
+  return <span style={elStyle}>{render(get(record, source), record)}</span>
+};
+
+TextField.PropTypes = {
+  source: PropTypes.string.isRequired,
+  elStyle: PropTypes.object,
+  record: PropTypes.object,
+  render: PropTypes.func,
+};
 
 TextField.defaultProps = {
   render: (value, record) => value
-};
-
-TextField.propTypes = {
-  source: PropTypes.string.isRequired,
-  record: PropTypes.object,
-  render: PropTypes.func,
 };
 
 export default TextField;
