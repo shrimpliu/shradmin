@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Row, Col } from 'antd';
 import mapValues from 'lodash/mapValues';
 import omitBy from 'lodash/omitBy';
+import isNumber from 'lodash/isNumber';
 import isEmpty from 'lodash/isEmpty';
 const FormItem = Form.Item;
 
@@ -32,6 +33,6 @@ export default Form.create({
     return mapValues(props.values, value => ({ value }));
   },
   onValuesChange(props, values) {
-    props.setFilters(omitBy(values, isEmpty));
+    props.setFilters(omitBy(values, value => isEmpty(value) && !isNumber(value) ));
   },
 })(FiltersForm);
