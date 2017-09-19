@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'mirrorx';
-import { List, DataTable, TextField } from '../../admin';
+import { List, DataTable, TextField, EditButton, ShowButton } from '../../admin';
 import Filters from './Filters';
 
 export default () => (
@@ -12,6 +12,8 @@ export default () => (
       <TextField source="email"/>
       <TextField source="phone"/>
       <TextField source="website"/>
+      <ShowButton simple />
+      <EditButton simple />
     </DataTable>
   </List>
 )
