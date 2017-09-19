@@ -9,11 +9,12 @@ const DataTable = ({ model, data, children, translate, rowKey, params, total, se
     const { source, ...rest } = child.props;
 
     return ({
-      title: translate(`models.${model}.fields.${source}`),
+      title: source ? translate(`models.${model}.fields.${source}`) : "",
       dataIndex: source,
       key: index,
       render: (value, record) => React.cloneElement(child, {
-        record
+        record,
+        model,
       }),
       ...rest,
     })
