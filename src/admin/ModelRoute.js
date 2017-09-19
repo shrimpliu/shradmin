@@ -18,6 +18,7 @@ const ModelRoute = ({ name, list, create, edit, show, remove }) => {
       {list && <Route exact path={`/${name}`} render={AuthorizationComponent(list, "list", name)}/>}
       {show && <Route exact path={`/${name}/:id/show`} render={AuthorizationComponent(show, "show", name)}/>}
       {create && <Route exact path={`/${name}/create`} render={AuthorizationComponent(create, "create", name)}/>}
+      {edit && <Route exact path={`/${name}/:id`} render={AuthorizationComponent(edit, "edit", name)}/>}
     </Switch>
   );
 
