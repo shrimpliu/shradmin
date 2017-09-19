@@ -4,7 +4,7 @@ import { connect, actions } from 'mirrorx';
 import compose from 'recompose/compose';
 import { Card, Spin } from 'antd';
 import { translate } from '../../i18n';
-import Actions from './Actions';
+import Actions from './ShowActions';
 
 class Show extends Component {
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import { RefreshButton, ListButton } from '../buttons';
 
-const Actions = ({ model, refresh }) => (
+const ShowActions = ({ model, refresh }) => (
   <Row type="flex" gutter={16} justify="end">
     <Col>
       <ListButton model={model} />
@@ -13,4 +13,4 @@ const Actions = ({ model, refresh }) => (
   </Row>
 );
 
-export default Actions;
+export default ShowActions;
