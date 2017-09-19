@@ -1,6 +1,6 @@
 import request from 'superagent';
 
-import { GET_LIST, GET_ONE } from './types';
+import { GET_LIST, GET_ONE, CREATE } from './types';
 
 const fetch = (url, type, model, params, headers) => {
 
@@ -17,6 +17,8 @@ const fetch = (url, type, model, params, headers) => {
       return request.get(`${url}/${model}`).set(headers).query(query);
     case GET_ONE:
       return request.get(`${url}/${model}/${params.id}`).set(headers);
+    case CREATE:
+      return request.post(`${url}/${model}`).set(headers).send(params.data);
     default:
       throw new Error(`Unsupported fetch type ${type}`);
   }
