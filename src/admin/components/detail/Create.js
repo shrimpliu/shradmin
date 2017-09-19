@@ -9,9 +9,9 @@ import Actions from './CreateActions';
 class Create extends Component {
 
   save = async (data) => {
-    const { model } = this.props;
+    const { model, translate } = this.props;
     await actions[model].create(data);
-    message.success("创建成功");
+    message.success(translate("notification.created"));
     actions.routing.push(`/${model}`);
   };
 
