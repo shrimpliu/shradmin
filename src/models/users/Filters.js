@@ -1,8 +1,9 @@
 import React from 'react';
-import { Filters, TextInput } from '../../admin';
+import { Input } from 'antd';
+import { Filters, FormField } from '../../admin';
 
 export default (props) => (
   <Filters {...props}>
-    <TextInput source="name"/>
+    <FormField source="name" input={<Input/>}/>
   </Filters>
 );
