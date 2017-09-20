@@ -7,7 +7,7 @@ export default (props) => (
   <List model="users" filters={<Filters />} {...props}>
     <DataTable>
       <TextField source="id" />
-      <TextField source="name" render={(value, record) => <Link to={`/users/${record.id}/show`}>{value}</Link>} sorter={true} />
+      <TextField source="name" format={(value, record) => <Link to={`/users/${record.id}/show`}>{value}</Link>} sorter={true} />
       <TextField source="username"/>
       <TextField source="email"/>
       <TextField source="phone"/>
