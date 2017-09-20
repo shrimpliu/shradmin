@@ -22,6 +22,9 @@ export default {
     updated: "Update Success",
     deleted: "Delete Success",
   },
+  tips: {
+    delete_warning: "Are you sure delete this entity?",
+  },
   models: {
     users: {
       name: "User",

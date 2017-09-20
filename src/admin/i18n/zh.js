@@ -22,6 +22,9 @@ export default {
     updated: "更新成功",
     deleted: "删除成功",
   },
+  tips: {
+    delete_warning: "确认删除？",
+  },
   models: {
     users: {
       name: "用户",
