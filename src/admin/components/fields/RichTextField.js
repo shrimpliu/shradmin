@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import get from 'lodash.get';
-import pure from 'recompose/pure';
+import get from 'lodash/get';
 
 export const removeTags = input => input ? input.replace(/<[^>]+>/gm, '') : '';
 
@@ -21,10 +20,9 @@ RichTextField.propTypes = {
   stripTags: PropTypes.bool,
 };
 
-const PureRichTextField = pure(RichTextField);
 
-PureRichTextField.defaultProps = {
+RichTextField.defaultProps = {
   stripTags: false,
 };
 
-export default PureRichTextField;
+export default RichTextField;

@@ -5,6 +5,7 @@ import RichTextField from './RichTextField';
 import NumberField from './NumberField';
 import DateField from './DateField';
 import ImageField from './ImageField';
+import PictureField from './PictureField';
 
 export {
   TextField,
@@ -13,5 +14,6 @@ export {
   RichTextField,
   NumberField,
   DateField,
-  ImageField
+  ImageField,
+  PictureField,
 };

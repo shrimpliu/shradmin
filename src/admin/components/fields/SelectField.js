@@ -1,5 +1,5 @@
 import React from 'react';
-import get from 'lodash.get';
+import get from 'lodash/get';
 import PropTypes from 'prop-types';
 
 const SelectField = ({ source, record = {}, elStyle, choices, optionValue, optionText }) => {

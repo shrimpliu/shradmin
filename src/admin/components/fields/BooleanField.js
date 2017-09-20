@@ -1,19 +1,14 @@
 import React from 'react';
-import get from 'lodash.get';
+import get from 'lodash/get';
+import isBoolean from 'lodash/isBoolean';
 import PropTypes from 'prop-types';
-import pure from 'recompose/pure';
 import { Icon } from 'antd';
 
 const BooleanField = ({ source, record = {}, elStyle }) => {
-  if (get(record, source) === false) {
-    return <Icon type="close" style={elStyle}/>;
-  }
-
-  if (get(record, source) === true) {
-    return <Icon type="check" style={elStyle} />;
-  }
-
-  return <span style={elStyle} />;
+  const value = isBoolean(get(record, source)) ? get(record, source) : !!get(record, source);
+  return value ?
+    <Icon type="check" style={elStyle} /> :
+    <Icon type="close" style={elStyle}/>;
 };
 
 BooleanField.propTypes = {
@@ -22,13 +17,8 @@ BooleanField.propTypes = {
   source: PropTypes.string.isRequired,
 };
 
-const PureBooleanField = pure(BooleanField);
-
-PureBooleanField.defaultProps = {
-  elStyle: {
-    display: 'block',
-    margin: 'auto',
-  },
+BooleanField.defaultProps = {
+  elStyle: { },
 };
 
-export default PureBooleanField;
+export default BooleanField;
