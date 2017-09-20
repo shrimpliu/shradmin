@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import inflection from 'inflection';
 import { Row, Col } from 'antd';
 
 const styles = {
@@ -18,7 +19,7 @@ const SimpleShowLayout = ({ children, model, record, translate, labelStyle, labe
     {React.Children.map(children, (child, index) => (
       <Row key={index} style={styles.row}>
         <Col style={{...styles.label, ...labelStyle}} {...labelCol}>
-          <span>{translate(`models.${model}.fields.${child.props.source}`)}</span>
+          <span>{translate(`models.${model}.fields.${child.props.source}`, {_: inflection.humanize(child.props.source)})}</span>
         </Col>
         <Col {...wrapperCol}>
           {React.cloneElement(child, {

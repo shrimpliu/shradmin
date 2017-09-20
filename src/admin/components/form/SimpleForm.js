@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import mapValues from 'lodash/mapValues';
 import get from 'lodash/get';
+import inflection from 'inflection';
 import { Form, Button } from 'antd';
 const FormItem = Form.Item;
 
@@ -58,7 +59,7 @@ class SimpleForm extends Component {
       <Form
         onSubmit={this.handleSubmit}>
         {React.Children.map(children, ({ props: { source, input, options } }, index) => (
-          <FormItem key={index} {...formItemLayout} label={translate(`models.${model}.fields.${source}`)} colon={false}>
+          <FormItem key={index} {...formItemLayout} label={translate(`models.${model}.fields.${source}`, {_: inflection.humanize(source)})} colon={false}>
             {getFieldDecorator(source, options)(input)}
           </FormItem>
         ))}

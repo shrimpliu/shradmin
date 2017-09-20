@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import inflection from 'inflection';
 import { Table } from 'antd';
 
 const DataTable = ({ model, data, children, translate, rowKey, params, total, setParams, ...rest }) => {
@@ -9,7 +10,7 @@ const DataTable = ({ model, data, children, translate, rowKey, params, total, se
     const { source, ...rest } = child.props;
 
     return ({
-      title: source ? translate(`models.${model}.fields.${source}`) : "",
+      title: source ? translate(`models.${model}.fields.${source}`, {_: inflection.humanize(source)}) : "",
       dataIndex: source,
       key: index,
       render: (value, record) => React.cloneElement(child, {
