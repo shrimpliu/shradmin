@@ -7,6 +7,7 @@ export * from './auth';
 export * from './rest';
 export * from './i18n';
 export * from './components';
+export * from './transformers';
 
 export {
   Admin,

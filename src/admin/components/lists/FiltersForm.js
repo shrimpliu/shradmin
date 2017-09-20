@@ -67,6 +67,8 @@ export default Form.create({
       return parse ? parse(value) : value;
     });
 
+    values = {...props.values, ...values};
+
     props.setFilters(omitBy(values, value => isEmpty(value) && !isNumber(value) ));
   },
 })(FiltersForm);
