@@ -13,6 +13,5 @@ export {
   RichTextField,
   DateField,
   PictureField,
-};
   BelongsToField,
 }
