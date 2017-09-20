@@ -2,12 +2,17 @@ import React from 'react';
 import { Route, Switch } from 'mirrorx';
 import { Authorization } from './auth';
 
-const ModelRoute = ({ name, list, create, edit, show, remove }) => {
+const ModelRoute = ({ name, list, create, edit, show, hasDelete }) => {
 
   const AuthorizationComponent = (component, route, model) => routeProps => (
     <Authorization>
       {React.createElement(component, {
         model,
+        hasList: !!list,
+        hasEdit: !!edit,
+        hasCreate: !!create,
+        hasShow: !!show,
+        hasDelete,
         ...routeProps,
       })}
     </Authorization>

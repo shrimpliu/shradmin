@@ -51,7 +51,7 @@ class List extends Component {
 
   render() {
 
-    const { actions, filters, model, children, data, translate, params, total } = this.props;
+    const { actions, filters, model, children, hasCreate, data, translate, params, total } = this.props;
 
     const requestParams = this.getRequestParams();
 
@@ -61,6 +61,7 @@ class List extends Component {
           {actions && React.cloneElement(actions, {
             model,
             refresh: this.refresh,
+            hasCreate,
           })}
           {filters && React.cloneElement(filters, {
             model,

@@ -17,7 +17,7 @@ class Create extends Component {
 
   render() {
 
-    const { children, model, title, actions, loading, translate } = this.props;
+    const { children, model, title, actions, loading, translate, hasList } = this.props;
 
     const titleElement = title || (translate('actions.create') + translate(`models.${model}.name`));
 
@@ -28,6 +28,7 @@ class Create extends Component {
         noHovering={true}
         extra={React.cloneElement(actions, {
           model,
+          hasList,
         })} >
         <Spin spinning={loading}>
           {React.cloneElement(children, {

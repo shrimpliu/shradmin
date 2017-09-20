@@ -26,7 +26,7 @@ class Edit extends Component {
 
   render() {
 
-    const {children, model, title, record, actions, loading, translate} = this.props;
+    const { children, model, title, record, actions, loading, translate, hasShow, hasList } = this.props;
 
     const titleElement = title || (translate('actions.edit') + translate(`models.${model}.name`));
 
@@ -38,6 +38,8 @@ class Edit extends Component {
         extra={React.cloneElement(actions, {
           model,
           record,
+          hasShow,
+          hasList,
         })} >
         <Spin spinning={loading}>
           {React.cloneElement(children, {

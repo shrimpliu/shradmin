@@ -23,7 +23,7 @@ class Show extends Component {
   };
 
   render() {
-    const { children, title, model, record, id, actions, loading, translate } = this.props;
+    const { children, title, model, record, id, actions, hasEdit, hasList, hasDelete, loading, translate } = this.props;
 
     const titleElement = (record && title) ? React.cloneElement(title, { record }) : (translate(`models.${model}.name`) + ` #${id}`);
 
@@ -36,6 +36,9 @@ class Show extends Component {
           model,
           record,
           refresh: this.refresh,
+          hasEdit,
+          hasList,
+          hasDelete,
         })} >
         <Spin spinning={loading}>
           {record && React.cloneElement(children, {
