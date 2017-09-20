@@ -22,7 +22,7 @@ const handleMenuClick = ({ key }) => {
 };
 
 const AppMenu = ({ models, selectedKey, translate }) => (
-  <Menu mode="inline" onClick={handleMenuClick} defaultSelectedKeys={[selectedKey]}>
+  <Menu mode="inline" onClick={handleMenuClick} defaultSelectedKeys={["home"]} selectedKeys={[selectedKey]}>
     <MenuItem key="home">
       <Icon type="home"/>
       <span>{translate("page.home")}</span>
