@@ -1,13 +1,11 @@
 import React from 'react';
 import get from 'lodash/get';
-import isBoolean from 'lodash/isBoolean';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
 
 const BooleanField = ({ source, record = {}, elStyle, format }) => {
   const value = format(get(record, source), record);
-  const bool = isBoolean(value) ? value : !!value;
-  return <Icon style={elStyle} type={bool?"check":"close"} />;
+  return <Icon style={elStyle} type={!!value ? "check" : "close"} />;
 };
 
 BooleanField.propTypes = {
