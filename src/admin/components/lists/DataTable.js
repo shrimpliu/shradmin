@@ -7,7 +7,7 @@ const DataTable = ({ model, data, children, translate, rowKey, params, total, se
 
   const columns = React.Children.map(children, (child, index) => {
 
-    const { source, ...rest } = child.props;
+    const { source, columnProps } = child.props;
 
     return ({
       title: source ? translate(`models.${model}.fields.${source}`, {_: inflection.humanize(source)}) : "",
@@ -17,7 +17,7 @@ const DataTable = ({ model, data, children, translate, rowKey, params, total, se
         record,
         model,
       }),
-      ...rest,
+      ...columnProps,
     })
   });
 
