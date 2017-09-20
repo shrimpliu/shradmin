@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import mapValues from 'lodash/mapValues';
+import get from 'lodash/get';
 import { Form, Button } from 'antd';
 const FormItem = Form.Item;
 
@@ -27,11 +28,22 @@ const buttonLayout = {
 
 class SimpleForm extends Component {
 
+  componentDidMount() {
+    this.parses = {};
+    React.Children.forEach(this.props.children, ({ props: { source, parse }}) => {
+      this.parses[source] = parse;
+    });
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const { save } = this.props;
     this.props.form.validateFieldsAndScroll((error, values) => {
       if (!error) {
+        values = mapValues(values, (value, source) => {
+          const parse = get(this.parses, source);
+          return parse ? parse(value) : value;
+        });
         save(values);
       }
     });
@@ -69,6 +81,17 @@ SimpleForm.propTypes = {
 
 export default Form.create({
   mapPropsToFields(props) {
-    return mapValues(props.record || {}, value => ({ value }));
+    const formats = {};
+
+    React.Children.forEach(props.children, ({ props: { source, format }}) => {
+      formats[source] = format;
+    });
+
+    return mapValues(props.record || {}, (value, source) => {
+      const format = get(formats, source);
+      return {
+        value: format ? format(value) : value,
+      };
+    });
   },
 })(SimpleForm);

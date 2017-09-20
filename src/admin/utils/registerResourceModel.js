@@ -1,5 +1,5 @@
 import mirror, { actions } from 'mirrorx';
-import { GET_LIST, GET_ONE, CREATE, UPDATE } from '../rest';
+import { GET_LIST, GET_ONE, CREATE, UPDATE, REMOVE } from '../rest';
 
 const addRecords = (newRecords = [], oldRecords) => {
 
@@ -78,6 +78,11 @@ export default (model, restClient) => {
       async update(id, data) {
         actions.loading.set(true);
         await restClient(UPDATE, model, { id, data });
+        actions.loading.set(false);
+      },
+      async remove(id) {
+        actions.loading.set(true);
+        await restClient(REMOVE, model, { id });
         actions.loading.set(false);
       },
     }
