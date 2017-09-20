@@ -3,8 +3,8 @@ import { Link } from 'mirrorx';
 import { List, DataTable, TextField, EditButton, ShowButton, RemoveButton } from '../../admin';
 import Filters from './Filters';
 
-export default () => (
-  <List model="users" filters={<Filters />}>
+export default (props) => (
+  <List model="users" filters={<Filters />} {...props}>
     <DataTable>
       <TextField source="id" />
       <TextField source="name" render={(value, record) => <Link to={`/users/${record.id}/show`}>{value}</Link>} sorter={true} />

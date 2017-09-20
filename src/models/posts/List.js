@@ -4,8 +4,8 @@ import { Link } from 'mirrorx';
 import { List, DataTable, TextField } from '../../admin';
 import Filters from './Filters';
 
-export default () => (
-  <List model="posts" filters={<Filters />}>
+export default (props) => (
+  <List model="posts" filters={<Filters />} {...props}>
     <DataTable>
       <TextField source="id" />
       <TextField source="userId" sorter={true} />
