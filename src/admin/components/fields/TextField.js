@@ -11,7 +11,6 @@ TextField.propTypes = {
   elStyle: PropTypes.object,
   record: PropTypes.object,
   format: PropTypes.func,
-  format: PropTypes.func,
 };
 
 TextField.defaultProps = {
