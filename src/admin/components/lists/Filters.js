@@ -13,14 +13,22 @@ class Filters extends Component {
   }, this.props.debounce);
 
   render() {
+
+    const { elStyle }= this.props;
+
     return (
-      <FiltersFrom setFilters={this.setFilters} {...this.props}/>
+      <div style={elStyle}>
+        <FiltersFrom setFilters={this.setFilters} {...this.props}/>
+      </div>
     );
   }
 }
 
 Filters.defaultProps = {
   debounce: 500,
+  elStyle: {
+    paddingTop: "2em"
+  },
 };
 
 Filters.propTypes = {
@@ -28,6 +36,7 @@ Filters.propTypes = {
   translate: PropTypes.func,
   debounce: PropTypes.number,
   values: PropTypes.object,
+  elStyle: PropTypes.object,
 };
 
 export default Filters;
