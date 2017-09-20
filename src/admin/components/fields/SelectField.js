@@ -1,14 +1,15 @@
 import React from 'react';
 import get from 'lodash/get';
+import isFunction from 'lodash/isFunction';
 import PropTypes from 'prop-types';
 
 const SelectField = ({ source, record = {}, elStyle, choices, optionValue, optionText }) => {
   const value = get(record,source);
-  const choice = choices.find(c => c[optionValue] === value);
+  const choice = choices.find(item => item[optionValue] === value);
   if (!choice) return null;
-  const choiceName = React.isValidElement(optionText) ? // eslint-disable-line no-nested-ternary
+  const choiceName = React.isValidElement(optionText) ?
     React.cloneElement(optionText, { record: choice }) :
-    (typeof optionText === 'function' ?
+    (isFunction(optionText)?
         optionText(choice) :
         choice[optionText]
     );

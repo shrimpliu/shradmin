@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal } from 'antd';
 import get from 'lodash/get';
+import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 
 class PictureField extends Component {
@@ -24,14 +25,14 @@ class PictureField extends Component {
   };
 
   render() {
-    const { record, source, children } = this.props;
+    const { record, source, children, format } = this.props;
     const { open, src } = this.state;
     const style = {
       display: 'flex',
       flexWrap: 'wrap',
       margin: '0 auto',
     };
-    let images = get(record,source);
+    let images = format(get(record,source), record);
     if(!isArray(images)){
       images = [images];
     }
@@ -64,5 +65,13 @@ class PictureField extends Component {
     );
   }
 }
+
+PictureField.PropTypes = {
+  format: PropTypes.func,
+};
+
+PictureField.defaultProps = {
+  format: (value, record) => value,
+};
 
 export default PictureField;
