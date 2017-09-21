@@ -1,9 +1,12 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import { RefreshButton, ListButton, EditButton, RemoveButton } from '../buttons';
+import { RefreshButton, ListButton, EditButton, RemoveButton, BackButton } from '../buttons';
 
 const ShowActions = ({ model, record, refresh, hasEdit, hasList, hasDelete }) => (
   <Row type="flex" gutter={16} justify="end">
+    <Col>
+      <BackButton />
+    </Col>
     {hasDelete &&
     <Col>
       <RemoveButton model={model} record={record}/>

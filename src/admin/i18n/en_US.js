@@ -16,6 +16,7 @@ export default {
     refresh: "Refresh",
     save: "Save",
     cancel: "Cancel",
+    back: "Back",
   },
   notification: {
     created: "Create Success",

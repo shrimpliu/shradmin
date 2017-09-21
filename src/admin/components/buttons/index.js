@@ -4,6 +4,7 @@ import ListButton from './ListButton';
 import EditButton from './EditButton';
 import ShowButton from './ShowButton';
 import RemoveButton from './RemoveButton';
+import BackButton from './BackButton';
 
 export {
   RefreshButton,
@@ -12,4 +13,5 @@ export {
   EditButton,
   ShowButton,
   RemoveButton,
+  BackButton,
 }

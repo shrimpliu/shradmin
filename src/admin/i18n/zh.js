@@ -16,6 +16,7 @@ export default {
     refresh: "刷新",
     save: "保存",
     cancel: "取消",
+    back: "返回",
   },
   notification: {
     created: "创建成功",

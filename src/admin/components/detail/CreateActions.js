@@ -1,9 +1,12 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import { ListButton } from '../buttons';
+import { ListButton, BackButton } from '../buttons';
 
 const CreateActions = ({ model, hasList }) => (
   <Row type="flex" gutter={16} justify="end">
+    <Col>
+      <BackButton />
+    </Col>
     {hasList &&
       <Col>
         <ListButton model={model}/>
