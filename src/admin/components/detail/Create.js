@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect, actions } from 'mirrorx';
 import compose from 'recompose/compose';
-import { Card, Spin, message } from 'antd';
+import { Card, Spin } from 'antd';
 import { translate } from '../../i18n';
 import Actions from './CreateActions';
 
 class Create extends Component {
 
   save = async (data) => {
-    const { model, translate } = this.props;
+    const { model } = this.props;
     await actions[model].create(data);
-    message.success(translate("notification.created"));
+    actions.notification.success("notification.created");
     actions.routing.push(`/${model}`);
   };
 

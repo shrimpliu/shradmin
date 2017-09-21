@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect, actions } from 'mirrorx';
 import compose from 'recompose/compose';
-import { Card, Spin, message } from 'antd';
+import { Card, Spin } from 'antd';
 import { translate } from '../../i18n';
 import Actions from './EditActions';
 
@@ -18,9 +18,9 @@ class Edit extends Component {
   };
 
   save = async (data) => {
-    const { model, id, translate } = this.props;
+    const { model, id } = this.props;
     await actions[model].getOne(id, data);
-    message.success(translate("notification.updated"));
+    actions.notification.success("notification.updated");
     actions.routing.push(`/${model}/${id}/show`);
   };
 

@@ -1,5 +1,4 @@
 import { actions } from 'mirrorx';
-import { message } from 'antd';
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK } from './types';
 
 export default (authClient) => ({
@@ -11,15 +10,15 @@ export default (authClient) => ({
     }
   },
   effects: {
-    async login({ params, translate }, getState) {
+    async login(params) {
       actions.loading.set(true);
       try {
         const info = await authClient(AUTH_LOGIN, params);
-        message.success(translate("auth.login_success"));
+        actions.notification.success("auth.login_success");
         actions.auth.set(info);
         actions.routing.push("/");
       } catch (error) {
-        message.error(error.message);
+        actions.notification.error(error.message);
         console.error(error);
       } finally {
         actions.loading.set(false);
