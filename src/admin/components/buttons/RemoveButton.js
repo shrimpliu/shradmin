@@ -6,10 +6,8 @@ import { translate } from '../../i18n';
 
 const RemoveButton = ({ translate, model, record, simple }) => {
 
-  const confirm = async () => {
-    await actions[model].remove(record.id);
-    actions.notification.success('notification.deleted');
-    actions.routing.push(`/${model}`);
+  const confirm = () => {
+    actions[model].remove(record.id);
   };
 
   const buttonProps = {

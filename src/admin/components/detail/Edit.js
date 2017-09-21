@@ -17,11 +17,9 @@ class Edit extends Component {
     actions[model].getOne(id);
   };
 
-  save = async (data) => {
+  save = (data) => {
     const { model, id } = this.props;
-    await actions[model].getOne(id, data);
-    actions.notification.success("notification.updated");
-    actions.routing.push(`/${model}/${id}/show`);
+    actions[model].getOne(id, data);
   };
 
   render() {

@@ -8,11 +8,9 @@ import Actions from './CreateActions';
 
 class Create extends Component {
 
-  save = async (data) => {
+  save = (data) => {
     const { model } = this.props;
-    await actions[model].create(data);
-    actions.notification.success("notification.created");
-    actions.routing.push(`/${model}`);
+    actions[model].create(data);
   };
 
   render() {
