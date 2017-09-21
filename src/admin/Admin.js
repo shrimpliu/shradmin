@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Router, Switch, Route, render, connect, model as registerModel } from 'mirrorx';
+import { Router, Switch, Route, render, model as registerModel } from 'mirrorx';
 import { LocaleProvider } from 'antd';
 import locales from 'antd/lib/locale-provider';
 import { Layout, Login, Menu, Dashboard } from './pages';
 import Routes from './Routes';
 import models from './models';
 import { getAuthModel } from './auth';
-import { TranslationProvider, getLocaleModel } from './i18n';
+import { getI18nModel } from './i18n';
 import { registerResourceModel } from './utils';
 
 models.forEach(model => {
@@ -17,9 +17,9 @@ models.forEach(model => {
 class Admin extends Component {
 
   componentWillMount() {
-    const { children, authClient, restClient, language } = this.props;
+    const { children, authClient, restClient, locale, messages } = this.props;
     registerModel(getAuthModel(authClient));
-    registerModel(getLocaleModel(language));
+    registerModel(getI18nModel(locale, messages));
     React.Children.forEach(children, ({ props }) => {
       registerResourceModel(props.name, restClient);
     });
@@ -28,31 +28,29 @@ class Admin extends Component {
 
   render() {
 
-    const { locale, messages, appLayout, title, menu, dashboard, children } = this.props;
+    const { locale, appLayout, title, menu, dashboard, children } = this.props;
 
     const models = React.Children.map(children, ({props}) => props) || [];
 
     return (
       <LocaleProvider locale={locales[locale]}>
-        <TranslationProvider locale={locale} messages={messages}>
-          <Router>
-            <div className="shradmin">
-              <Switch>
-                <Route exact path="/login" component={Login}/>
-                <Route path="/" render={() => React.createElement(appLayout || Layout, {
-                  menu: React.createElement(menu || Menu, {
-                    models,
-                  }),
-                  routes: React.createElement(Routes, {
-                    models,
-                    dashboard: dashboard || Dashboard,
-                  }),
-                  title,
-                })} />
-              </Switch>
-            </div>
-          </Router>
-        </TranslationProvider>
+        <Router>
+          <div className="shradmin">
+            <Switch>
+              <Route exact path="/login" component={Login}/>
+              <Route path="/" render={() => React.createElement(appLayout || Layout, {
+                menu: React.createElement(menu || Menu, {
+                  models,
+                }),
+                routes: React.createElement(Routes, {
+                  models,
+                  dashboard: dashboard || Dashboard,
+                }),
+                title,
+              })} />
+            </Switch>
+          </div>
+        </Router>
       </LocaleProvider>
     );
   }
@@ -67,7 +65,7 @@ Admin.defaultProps = {
 Admin.propTypes = {
   appLayout: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   authClient: PropTypes.func.isRequired,
-  language: PropTypes.string,
+  locale: PropTypes.string,
   messages: PropTypes.object,
   title: PropTypes.node,
   menu: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
@@ -75,6 +73,4 @@ Admin.propTypes = {
   restClient: PropTypes.func,
 };
 
-export default connect(({locale}) => ({
-  locale,
-}))(Admin);
+export default Admin;

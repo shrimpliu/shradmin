@@ -22,6 +22,7 @@ export default {
     created: "Create Success",
     updated: "Update Success",
     deleted: "Delete Success",
+    fetch_error: "Fetch Error",
   },
   tips: {
     delete_warning: "Are you sure delete this entity?",

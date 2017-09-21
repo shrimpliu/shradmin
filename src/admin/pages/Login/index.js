@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Form, Row, Input, Button } from 'antd';
+import compose from 'recompose/compose';
 import { actions, connect } from 'mirrorx';
+import { translate } from '../../i18n';
 const FormItem = Form.Item;
 
 const styles = {
@@ -29,24 +31,22 @@ const Title = ({translate}) => (
 class Login extends Component {
 
   handleSubmit = () => {
-    const { translate } = this.context;
     const { form: { validateFieldsAndScroll } } = this.props;
     validateFieldsAndScroll((errors, values) => {
       if (errors) {
         return;
       }
-      actions.auth.login({params: values, translate});
+      actions.auth.login(values);
     });
   };
 
   render() {
 
-    const { loading, form: { getFieldDecorator } } = this.props;
-    const { translate } = this.context;
+    const { loading, translate, form: { getFieldDecorator } } = this.props;
 
     return(
       <div style={styles.container}>
-        <Card title={<Title translate={translate}/>} style={styles.card}>
+        <Card title={<Title translate={translate} />} style={styles.card}>
           <form>
             <FormItem hasFeedback>
               {getFieldDecorator('username', {
@@ -83,8 +83,12 @@ Login.contextTypes = {
   translate: PropTypes.func
 };
 
-export default connect(({loading}) => ({
-  loading
-}))(
-  Form.create()(Login)
+const enhance = compose(
+  connect(({loading}) => ({
+    loading
+  })),
+  Form.create(),
+  translate,
 );
+
+export default enhance(Login);

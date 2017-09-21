@@ -22,6 +22,7 @@ export default {
     created: "创建成功",
     updated: "更新成功",
     deleted: "删除成功",
+    fetch_error: "请求出现错误",
   },
   tips: {
     delete_warning: "确认删除？",

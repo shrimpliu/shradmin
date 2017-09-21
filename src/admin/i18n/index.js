@@ -1,7 +1,6 @@
 import en_US from './en_US';
 import zh from './zh';
-import getLocaleModel from './getModel';
-import TranslationProvider from './TranslationProvider';
+import getI18nModel from './getModel';
 import translate from './translate';
 
 export const DEFAULT_LOCALE = "en";
@@ -12,7 +11,6 @@ export const messages = {
 };
 
 export {
-  getLocaleModel,
-  TranslationProvider,
+  getI18nModel,
   translate,
 };

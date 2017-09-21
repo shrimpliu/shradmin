@@ -1,14 +1,6 @@
-import PropTypes from 'prop-types';
-import { getContext } from 'recompose';
+import inflection from 'inflection';
+import { connect } from 'mirrorx';
 
-export default (Component) => {
-  const TranslatedComponent = getContext({
-    translate: PropTypes.func.isRequired,
-    locale: PropTypes.string.isRequired,
-  })(Component);
-
-  TranslatedComponent.defaultProps = Component.defaultProps;
-
-  return TranslatedComponent;
-
-};
+export default (Component) => connect(({ i18n }) => ({
+  translate: (text, params = {}) => i18n.t(text, { _: inflection.humanize(text), ...params })
+}))(Component);
