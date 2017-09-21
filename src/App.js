@@ -12,7 +12,7 @@ import messages from './i18n';
 class App extends Component {
   render() {
     return (
-      <Admin authClient={authClient} restClient={restClient} language="zh" messages={messages}>
+      <Admin authClient={authClient} restClient={restClient} locale="zh" messages={messages}>
         <Model name="users" list={UserList} show={UserShow} create={UserCreate} edit={UserEdit} icon={UserIcon}/>
         <Model name="posts" list={PostList} show={PostShow} icon={PostIcon}/>
       </Admin>
