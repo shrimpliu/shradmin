@@ -6,19 +6,6 @@ import inflection from 'inflection';
 import { Form, Button } from 'antd';
 const FormItem = Form.Item;
 
-const formItemLayout = {
-  labelCol: {
-    lg: { span: 3 },
-    xs: { span: 24 },
-    sm: { span: 4 },
-  },
-  wrapperCol: {
-    lg: { span: 6 },
-    xs: { span: 24 },
-    sm: { span: 12 },
-  },
-};
-
 const buttonLayout = {
   wrapperCol: {
     lg: { span: 6, offset: 3, },
@@ -58,8 +45,8 @@ class SimpleForm extends Component {
     return (
       <Form
         onSubmit={this.handleSubmit}>
-        {React.Children.map(children, ({ props: { source, input, options } }, index) => (
-          <FormItem key={index} {...formItemLayout} label={translate(`models.${model}.fields.${source}`, {_: inflection.humanize(source)})} colon={false}>
+        {React.Children.map(children, ({ props: { source, input, options, layoutSpan } }, index) => (
+          <FormItem key={index} {...layoutSpan} label={translate(`models.${model}.fields.${source}`, {_: inflection.humanize(source)})} colon={false}>
             {getFieldDecorator(source, options)(input)}
           </FormItem>
         ))}
