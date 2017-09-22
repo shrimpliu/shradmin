@@ -1,7 +1,7 @@
 import request from 'superagent';
 import isUndefined from 'lodash/isUndefined';
 
-import { GET_LIST, GET_ONE, CREATE, UPDATE, REMOVE } from './types';
+import { GET_LIST, GET_ONE, CREATE, UPDATE, REMOVE } from '../admin';
 
 const fetch = (url, type, model, params, headers) => {
 
