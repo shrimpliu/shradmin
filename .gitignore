@@ -67,3 +67,6 @@ typings/
 .env.production.local
 
 .idea/
+
+/lib
+/demo/dist
