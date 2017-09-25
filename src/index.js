@@ -1,8 +1,15 @@
-import React from 'react';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import { render } from 'mirrorx';
+import Admin from './Admin';
+import Model from './Model';
 
-render(<App />, document.getElementById('root'));
-registerServiceWorker();
+export * from './pages';
+export * from './utils';
+export * from './auth';
+export * from './rest';
+export * from './i18n';
+export * from './components';
+export * from './transformers';
+
+export {
+  Admin,
+  Model,
+};
