@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from 'antd';
-import { Edit, SimpleForm, FormField } from '../../../../src';
+import { Edit, SimpleForm, FormField } from '../../../../lib';
 
 export default (props) => (
   <Edit model="users" {...props}>

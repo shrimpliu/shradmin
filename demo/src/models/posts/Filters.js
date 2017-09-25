@@ -1,6 +1,6 @@
 import React from 'react';
 import { InputNumber, DatePicker } from 'antd';
-import { Filters, FormField, dateToString, stringToDate } from '../../../../src';
+import { Filters, FormField, dateToString, stringToDate } from '../../../../lib';
 const { RangePicker } =  DatePicker;
 
 export default (props) => (

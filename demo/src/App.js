@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Admin, Model } from '../../src';
+import { Admin, Model } from '../../lib';
 import {
   UserList, UserIcon, UserShow, UserCreate,
   PostList, PostIcon, PostShow,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from 'antd';
-import { Filters, FormField } from '../../../../src';
+import { Filters, FormField } from '../../../../lib';
 
 export default (props) => (
   <Filters {...props}>
