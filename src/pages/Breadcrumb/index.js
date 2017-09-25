@@ -4,12 +4,11 @@ import { connect, Link } from 'mirrorx';
 import compose from 'recompose/compose';
 import split from 'lodash/split';
 import { translate } from '../../i18n';
-import "./style.css";
 
 const BreadcrumbItem = Breadcrumb.Item;
 
 const AppBreadcrumb = ({ translate, routes }) => (
-  <Breadcrumb className="breadcrumb">
+  <Breadcrumb style={{margin: "16px 0"}}>
     <BreadcrumbItem>
       <Link to="/">{translate("page.home")}</Link>
     </BreadcrumbItem>
