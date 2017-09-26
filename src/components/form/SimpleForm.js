@@ -14,12 +14,31 @@ const buttonLayout = {
   },
 };
 
+const formItemLayout = {
+  labelCol: {
+    lg: { span: 3 },
+    xs: { span: 24 },
+    sm: { span: 4 },
+  },
+  wrapperCol: {
+    lg: { span: 6 },
+    xs: { span: 24 },
+    sm: { span: 12 },
+  },
+};
+
+const defaultFormat = value => value;
+const defaultParse = value => value;
+
 class SimpleForm extends Component {
 
   componentDidMount() {
     this.parses = {};
-    React.Children.forEach(this.props.children, ({ props: { source, parse }}) => {
-      this.parses[source] = parse;
+    React.Children.forEach(this.props.children, (child) => {
+      if (child) {
+        const {source, parse} = child.props;
+        this.parses[source] = parse || defaultParse;
+      }
     });
   }
 
@@ -40,16 +59,29 @@ class SimpleForm extends Component {
 
   render() {
 
-    const { children, model, translate, form: { getFieldDecorator } } = this.props;
+    const { children, model, record, translate, form: { getFieldDecorator } } = this.props;
 
     return (
       <Form
         onSubmit={this.handleSubmit}>
-        {React.Children.map(children, ({ props: { source, input, options, layoutSpan } }, index) => (
-          <FormItem key={index} {...layoutSpan} label={translate(`models.${model}.fields.${source}`, {_: inflection.humanize(source)})} colon={false}>
-            {getFieldDecorator(source, options)(input)}
-          </FormItem>
-        ))}
+        {React.Children.map(children, (child, index) => {
+          if (child) {
+            const {source, input, options, layoutSpan} = child.props;
+            return (
+              <FormItem key={index} {...formItemLayout} {...layoutSpan}
+                        label={translate(`models.${model}.fields.${source}`, {_: inflection.humanize(source)})}
+                        colon={false}>
+                {input ?
+                  getFieldDecorator(source, options)(input) :
+                  React.cloneElement(child, {
+                    record
+                  })
+                }
+              </FormItem>
+            );
+          }
+          return null;
+        })}
         <FormItem {...buttonLayout}>
           <Button type="primary" htmlType="submit">
             {translate('actions.save')}
@@ -71,8 +103,11 @@ export default Form.create({
   mapPropsToFields(props) {
     const formats = {};
 
-    React.Children.forEach(props.children, ({ props: { source, format }}) => {
-      formats[source] = format;
+    React.Children.forEach(props.children, (child) => {
+      if (child) {
+        const {source, format} = child.props;
+        formats[source] = format || defaultFormat;
+      }
     });
 
     return mapValues(props.record || {}, (value, source) => {

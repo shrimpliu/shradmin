@@ -16,7 +16,7 @@ const styles = {
 
 const SimpleShowLayout = ({ children, model, record, translate, labelStyle, labelCol, wrapperCol }) => (
   <div>
-    {React.Children.map(children, (child, index) => (
+    {React.Children.map(children, (child, index) => child && (
       <Row key={index} style={styles.row}>
         <Col style={{...styles.label, ...labelStyle}} {...labelCol}>
           <span>{translate(`models.${model}.fields.${child.props.source}`, {_: inflection.humanize(child.props.source)})}</span>
