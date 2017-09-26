@@ -4,10 +4,10 @@ import { Button, Popconfirm } from 'antd';
 import { actions } from 'mirrorx';
 import { translate } from '../../i18n';
 
-const RemoveButton = ({ translate, model, record, simple }) => {
+const RemoveButton = ({ translate, model, record, simple, redirect }) => {
 
   const confirm = () => {
-    actions[model].remove(record.id);
+    actions[model].remove({ id: record.id, redirect });
   };
 
   const buttonProps = {
@@ -33,6 +33,7 @@ RemoveButton.propTypes = {
   record: PropTypes.object,
   translate: PropTypes.func.isRequired,
   simple: PropTypes.bool,
+  redirect: PropTypes.oneOfType([PropTypes.func, PropTypes.bool, PropTypes.oneOf(['list', 'edit', 'show'])]),
 };
 
 export default translate(RemoveButton);

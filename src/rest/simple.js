@@ -42,7 +42,9 @@ const formatResponse = (response, type) => {
         data: body,
       };
     default:
-      return {};
+      return {
+        data: body
+      };
   }
 };
 

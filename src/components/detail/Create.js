@@ -9,8 +9,8 @@ import Actions from './CreateActions';
 class Create extends Component {
 
   save = (data) => {
-    const { model, getFieldsValue } = this.props;
-    actions[model].create(getFieldsValue(data));
+    const { model, getFieldsValue, redirect } = this.props;
+    actions[model].create({data: getFieldsValue(data), redirect});
   };
 
   render() {
@@ -51,7 +51,7 @@ Create.propTypes = {
   title: PropTypes.node,
   actions: PropTypes.element,
   model: PropTypes.string.isRequired,
-  redirect: PropTypes.oneOf(['list', 'edit', 'show']),
+  redirect: PropTypes.oneOfType([PropTypes.func, PropTypes.bool, PropTypes.oneOf(['list', 'edit', 'show'])]),
   getFieldsValue: PropTypes.func,
 };
 

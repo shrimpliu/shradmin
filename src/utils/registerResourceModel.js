@@ -1,6 +1,7 @@
 import mirror, { actions } from 'mirrorx';
 import isString from 'lodash/isString';
 import pull from 'lodash/pull';
+import isFunction from 'lodash/isFunction';
 import { GET_LIST, GET_ONE, CREATE, UPDATE, REMOVE } from '../rest';
 
 const addRecords = (newRecords = [], oldRecords) => {
@@ -92,37 +93,67 @@ export default (model, restClient) => {
           actions.loading.set(false);
         }
       },
-      async create(data) {
+      async create({data, redirect = "list"}) {
         actions.loading.set(true);
         try {
-          await restClient(CREATE, model, {data});
+          const result = await restClient(CREATE, model, { data });
           actions.notification.success("notification.created");
-          actions.routing.push(`/${model}`);
+          const record = result.data;
+          let location = `/${model}`;
+          if (record) {
+            actions[model].addOne(record);
+            if (isFunction(redirect)) {
+              location = redirect(model, record);
+            } else if (redirect === "show" && record.id) {
+              location = `/${model}/${record.id}/show`
+            } else if (redirect === "edit" && record.id) {
+              location = `/${model}/${record.id}`
+            }
+          }
+          if (redirect) {
+            actions.routing.push(location);
+          }
         } catch (error) {
           handleFetchError(error);
         } finally {
           actions.loading.set(false);
         }
       },
-      async update({ id, data }) {
+      async update({ id, data, redirect = "list" }) {
         actions.loading.set(true);
         try {
-          await restClient(UPDATE, model, { id, data });
+          const result = await restClient(UPDATE, model, { id, data });
           actions.notification.success("notification.updated");
-          actions.routing.push(`/${model}/${id}/show`);
+          const record = result.data;
+          let location = `/${model}`;
+          if (record) {
+            actions[model].addOne(record);
+            if (isFunction(redirect)) {
+              location = redirect(model, record);
+            } else if (redirect === "show" && record.id) {
+              location = `/${model}/${record.id}/show`
+            } else if (redirect === "edit" && record.id) {
+              location = `/${model}/${record.id}`
+            }
+          }
+          if (redirect) {
+            actions.routing.push(location);
+          }
         } catch (error) {
           handleFetchError(error);
         } finally {
           actions.loading.set(false);
         }
       },
-      async remove(id) {
+      async remove({id, redirect = "list"}) {
         actions.loading.set(true);
         try {
           await restClient(REMOVE, model, { id });
           actions[model].pull(id);
           actions.notification.success('notification.deleted');
-          actions.routing.push(`/${model}`);
+          if (redirect) {
+            actions.routing.push(`/${model}`);
+          }
         } catch (error) {
           handleFetchError(error);
         } finally {
