@@ -1,6 +1,6 @@
 {
   "name": "shradmin",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A frontend Framework for building admin application, using antd and mirrorjs.",
   "main": "lib/index.js",
   "module": "es/index.js",
