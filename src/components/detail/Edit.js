@@ -19,7 +19,7 @@ class Edit extends Component {
 
   save = (data) => {
     const { model, id } = this.props;
-    actions[model].update(id, data);
+    actions[model].update({ id, data });
   };
 
   render() {

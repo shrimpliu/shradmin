@@ -1,5 +1,6 @@
 import mirror, { actions } from 'mirrorx';
 import isString from 'lodash/isString';
+import pull from 'lodash/pull';
 import { GET_LIST, GET_ONE, CREATE, UPDATE, REMOVE } from '../rest';
 
 const addRecords = (newRecords = [], oldRecords) => {
@@ -63,6 +64,10 @@ export default (model, restClient) => {
           },
         }
       },
+      pull(state, id) {
+        pull(state.ids, id);
+        return state;
+      },
     },
     effects: {
       async getList(params) {
@@ -99,7 +104,7 @@ export default (model, restClient) => {
           actions.loading.set(false);
         }
       },
-      async update(id, data) {
+      async update({ id, data }) {
         actions.loading.set(true);
         try {
           await restClient(UPDATE, model, { id, data });
@@ -115,6 +120,7 @@ export default (model, restClient) => {
         actions.loading.set(true);
         try {
           await restClient(REMOVE, model, { id });
+          actions[model].pull(id);
           actions.notification.success('notification.deleted');
           actions.routing.push(`/${model}`);
         } catch (error) {
