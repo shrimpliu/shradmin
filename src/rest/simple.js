@@ -46,8 +46,9 @@ const formatResponse = (response, type) => {
   }
 };
 
-export default (url, headers = {}) => {
+export default (url, getHeaders = () => ({})) => {
   return (type, model, params = {}) => {
+    const headers = getHeaders(type, model, params);
     return fetch(url, type, model, params, headers).then(response => formatResponse(response, type))
   }
 }
