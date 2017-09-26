@@ -18,8 +18,8 @@ class Edit extends Component {
   };
 
   save = (data) => {
-    const { model, id, format } = this.props;
-    actions[model].update({ id, data: format(data, id) });
+    const { model, id, getFieldsValue } = this.props;
+    actions[model].update({ id, data: getFieldsValue(data, id) });
   };
 
   render() {
@@ -55,7 +55,7 @@ class Edit extends Component {
 Edit.defaultProps = {
   actions: <Actions/>,
   redirect: "list",
-  format: (values, id) => values,
+  getFieldsValue: (values, id) => values,
 };
 
 Edit.propTypes = {
@@ -63,7 +63,7 @@ Edit.propTypes = {
   actions: PropTypes.element,
   model: PropTypes.string.isRequired,
   redirect: PropTypes.oneOf(['list', 'edit', 'show']),
-  format: PropTypes.func,
+  getFieldsValue: PropTypes.func,
 };
 
 const enhance = compose(
