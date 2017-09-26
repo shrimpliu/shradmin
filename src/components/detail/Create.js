@@ -9,8 +9,8 @@ import Actions from './CreateActions';
 class Create extends Component {
 
   save = (data) => {
-    const { model } = this.props;
-    actions[model].create(data);
+    const { model, format } = this.props;
+    actions[model].create(format(data));
   };
 
   render() {
@@ -44,6 +44,7 @@ class Create extends Component {
 Create.defaultProps = {
   actions: <Actions/>,
   redirect: "list",
+  format: values => values,
 };
 
 Create.propTypes = {
@@ -51,6 +52,7 @@ Create.propTypes = {
   actions: PropTypes.element,
   model: PropTypes.string.isRequired,
   redirect: PropTypes.oneOf(['list', 'edit', 'show']),
+  format: PropTypes.func,
 };
 
 const enhance = compose(
