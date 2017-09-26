@@ -13,9 +13,9 @@ export default (authClient) => ({
     async login(params) {
       actions.loading.set(true);
       try {
-        const info = await authClient(AUTH_LOGIN, params);
+        const login = await authClient(AUTH_LOGIN, params);
         actions.notification.success("auth.login_success");
-        actions.auth.set(info);
+        actions.auth.set(login);
         actions.routing.push("/");
       } catch (error) {
         actions.notification.error(error.message);
@@ -26,14 +26,17 @@ export default (authClient) => ({
     },
     async logout() {
       await authClient(AUTH_LOGOUT);
+      actions.auth.set({});
       actions.routing.push("/login");
     },
     async check() {
       try {
-        await authClient(AUTH_CHECK);
+        const login = await authClient(AUTH_CHECK);
+        if (login) {
+          actions.auth.set(login);
+        }
       } catch (error) {
         actions.auth.logout();
-        actions.routing.push("/login");
       }
     },
   }
