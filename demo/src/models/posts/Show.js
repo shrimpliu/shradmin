@@ -1,5 +1,5 @@
 import React from 'react';
-import { Show, SimpleShowLayout, TextField } from '../../../../lib';
+import { Show, SimpleShowLayout, TextField } from '../../../../src';
 
 const Title = ({ record }) => <span>{record.title}</span>;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import truncate from 'lodash/truncate';
 import { Link } from 'mirrorx';
-import { List, DataTable, TextField, BelongsToField } from '../../../../lib';
+import { List, DataTable, TextField, BelongsToField } from '../../../../src';
 import Filters from './Filters';
 
 export default (props) => (

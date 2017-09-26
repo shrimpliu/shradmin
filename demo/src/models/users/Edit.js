@@ -1,13 +1,19 @@
 import React from 'react';
 import { Input } from 'antd';
-import { Edit, SimpleForm, FormField } from '../../../../lib';
+import { Edit, SimpleForm, FormField, TextField } from '../../../../src';
+
+const getFieldsValue = values => {
+  return values;
+};
+
+const redirect = (model, record) => {
+  return `/${model}/${record.id}/show`;
+};
 
 export default (props) => (
-  <Edit model="users" {...props}>
+  <Edit model="users" getFieldsValue={getFieldsValue} redirect={redirect} {...props}>
     <SimpleForm>
-      <FormField source="email" input={<Input/>} options={{
-        rules: [{type: "string"}, {required: true}]
-      }}/>
+      <TextField source="email" />
       <FormField source="phone" input={<Input/>} />
       <FormField source="website" input={<Input/>} />
     </SimpleForm>

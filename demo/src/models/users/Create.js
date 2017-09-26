@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from 'antd';
-import { Create, SimpleForm, FormField } from '../../../../lib';
+import { Create, SimpleForm, FormField } from '../../../../src';
 
 export default (props) => (
   <Create model="users" {...props}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'mirrorx';
-import { List, DataTable, TextField, EditButton, ShowButton, RemoveButton } from '../../../../lib';
+import { List, DataTable, TextField, EditButton, ShowButton, RemoveButton } from '../../../../src';
 import Filters from './Filters';
 
 export default (props) => (
