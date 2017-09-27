@@ -24,7 +24,7 @@ class Edit extends Component {
 
   render() {
 
-    const { children, model, title, record, actions, loading, translate, hasShow, hasList } = this.props;
+    const { children, model, title, record, mapFieldsValue, actions, loading, translate, hasShow, hasList } = this.props;
 
     const titleElement = title || (translate('actions.edit') + translate(`models.${model}.name`));
 
@@ -35,14 +35,14 @@ class Edit extends Component {
         noHovering={true}
         extra={React.cloneElement(actions, {
           model,
-          record,
+          record: mapFieldsValue(record),
           hasShow,
           hasList,
         })} >
         <Spin spinning={loading}>
           {React.cloneElement(children, {
             model,
-            record,
+            record: mapFieldsValue(record),
             translate,
             save: this.save,
           })}
@@ -56,6 +56,7 @@ Edit.defaultProps = {
   actions: <Actions/>,
   redirect: "list",
   getFieldsValue: (values, id) => values,
+  mapFieldsValue: record => record,
 };
 
 Edit.propTypes = {
@@ -64,6 +65,7 @@ Edit.propTypes = {
   model: PropTypes.string.isRequired,
   redirect: PropTypes.oneOfType([PropTypes.func, PropTypes.bool, PropTypes.oneOf(['list', 'edit', 'show'])]),
   getFieldsValue: PropTypes.func,
+  mapFieldsValue: PropTypes.func,
 };
 
 const enhance = compose(
