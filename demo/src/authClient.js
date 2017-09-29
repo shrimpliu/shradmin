@@ -1,4 +1,4 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AUTH_ERROR } from '../../src';
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AUTH_ERROR, AUTH_USER } from '../../src';
 
 const sleep = function (ms) {
   return new Promise((resolve) => {
@@ -7,6 +7,10 @@ const sleep = function (ms) {
 };
 
 export default (type, params) => {
+
+  const login = JSON.parse(localStorage.getItem('login'));
+  const info = JSON.parse(localStorage.getItem('info'));
+
   switch(type) {
     case AUTH_LOGIN:
       const { username, password } = params;
@@ -14,16 +18,23 @@ export default (type, params) => {
         if (username !== "admin" && password !== "admin") {
           throw new Error("Authentication failed");
         }
-        localStorage.setItem("username", username);
-        return {username};
+        localStorage.setItem("login", JSON.stringify({ username }));
+        return { username };
       });
     case AUTH_LOGOUT:
-      localStorage.removeItem('username');
+      localStorage.removeItem('login');
+      localStorage.removeItem('info');
       return Promise.resolve();
     case AUTH_ERROR:
       return Promise.resolve();
     case AUTH_CHECK:
-      return localStorage.getItem("username") ? Promise.resolve() : Promise.reject();
+      if (login.username) {
+        return Promise.resolve({login, info });
+      }
+      return Promise.reject();
+    case AUTH_USER:
+      localStorage.setItem("info", JSON.stringify({ username: login.username, name: login.username }));
+      return { username: login.username, name: login.username };
     default:
       return Promise.reject('Unknown method');    
   }
