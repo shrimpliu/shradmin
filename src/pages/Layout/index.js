@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'mirrorx';
+import compose from 'recompose/compose';
 import { Layout } from 'antd';
-import DefaultAppBar from '../AppBar';
 import Breadcrumb from '../Breadcrumb';
+import { translate } from '../../i18n';
 const { Sider, Header, Content, Footer } = Layout;
 
 const style = {
@@ -32,10 +33,15 @@ const style = {
   }
 };
 
-const AppLayout = ({ title, menu, routes, collapsed }) => (
+const AppLayout = ({ title, menu, routes, collapsed, translate, userMenu, appBar }) => (
   <Layout style={style.container}>
     <Header style={style.header}>
-      <DefaultAppBar title={title} collapsed={collapsed}/>
+      {React.cloneElement(appBar, {
+        title,
+        collapsed,
+        translate,
+        userMenu
+      })}
     </Header>
     <Layout>
       <Sider style={style.sider} collapsible trigger={null} collapsed={collapsed}>
@@ -62,9 +68,14 @@ AppLayout.defaultProps = {
 
 AppLayout.propTypes = {
   title: PropTypes.node.isRequired,
-
+  userMenu: PropTypes.node,
 };
 
-export default connect(({ collapsed }) => ({
-  collapsed,
-}))(AppLayout);
+const enhance = compose(
+  connect(({ collapsed }) => ({
+    collapsed,
+  })),
+  translate,
+);
+
+export default enhance(AppLayout);

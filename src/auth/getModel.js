@@ -1,12 +1,25 @@
 import { actions } from 'mirrorx';
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK } from './types';
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AUTH_USER } from './types';
+import { GET_USER } from '../rest/types';
 
-export default (authClient) => ({
+export default (authClient, restClient) => ({
   name: "auth",
-  initialState: {},
+  initialState: {
+    login: {},
+    info: {},
+  },
   reducers: {
-    set(state, data) {
-      return {...state, ...data};
+    setLogin(state, data) {
+      return {...state, login: data};
+    },
+    setInfo(state, data) {
+      return {...state, info: data};
+    },
+    clear(state) {
+      return {
+        login: {},
+        info: {},
+      };
     }
   },
   effects: {
@@ -15,7 +28,8 @@ export default (authClient) => ({
       try {
         const login = await authClient(AUTH_LOGIN, params);
         actions.notification.success("auth.login_success");
-        actions.auth.set(login);
+        actions.auth.setLogin(login);
+        actions.auth.getUserInfo();
         actions.routing.push("/");
       } catch (error) {
         actions.notification.error(error.message);
@@ -26,16 +40,30 @@ export default (authClient) => ({
     },
     async logout() {
       await authClient(AUTH_LOGOUT);
-      actions.auth.set({});
+      actions.auth.clear();
       actions.routing.push("/login");
     },
     async check() {
       try {
-        const login = await authClient(AUTH_CHECK);
+        const { login, info } = await authClient(AUTH_CHECK);
         if (login) {
-          actions.auth.set(login);
+          actions.auth.setLogin(login);
+        }
+        if (info) {
+          actions.auth.setInfo(info);
         }
       } catch (error) {
+        actions.auth.logout();
+      }
+    },
+    async getUserInfo(params) {
+      try {
+        const info = await authClient(AUTH_USER, params);
+        if (info) {
+          actions.auth.setInfo(info);
+        }
+      } catch (error) {
+        console.error(error);
         actions.auth.logout();
       }
     },

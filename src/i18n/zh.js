@@ -5,7 +5,8 @@ export default {
     logout: "注销"
   },
   page: {
-    home: "控制台"
+    home: "控制台",
+    logout: "注销",
   },
   actions: {
     list: "列表",

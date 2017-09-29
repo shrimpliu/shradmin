@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Router, Switch, Route, render, model as registerModel } from 'mirrorx';
 import { LocaleProvider } from 'antd';
 import locales from 'antd/lib/locale-provider';
-import { Layout, Login, Menu, Dashboard } from './pages';
+import { Layout, Login, Menu, UserMenu, Dashboard, AppBar } from './pages';
 import Routes from './Routes';
 import models from './models';
 import { getAuthModel } from './auth';
@@ -28,7 +28,7 @@ class Admin extends Component {
 
   render() {
 
-    const { locale, appLayout, title, menu, dashboard, children } = this.props;
+    const { locale, appLayout, title, menu, dashboard, userMenu, appBar, children } = this.props;
 
     const models = React.Children.map(children, ({props}) => props) || [];
 
@@ -41,6 +41,10 @@ class Admin extends Component {
               <Route path="/" render={() => React.createElement(appLayout || Layout, {
                 menu: React.createElement(menu || Menu, {
                   models,
+                }),
+                userMenu: React.createElement(userMenu || UserMenu),
+                appBar: React.createElement(appBar || AppBar, {
+
                 }),
                 routes: React.createElement(Routes, {
                   models,
