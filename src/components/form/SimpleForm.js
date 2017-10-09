@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import mapValues from 'lodash/mapValues';
 import get from 'lodash/get';
 import pickBy from 'lodash/pickBy';
+import isEqual from 'lodash/isEqual';
 import has from 'lodash/has';
 import inflection from 'inflection';
 import { Form, Button } from 'antd';
@@ -36,7 +37,7 @@ class SimpleForm extends Component {
 
   componentDidMount() {
 
-    const { record, form: { setFieldsValue, getFieldsValue } } = this.props;
+    const { record } = this.props;
 
     this.parses = {};
     this.formats = {};
@@ -48,6 +49,18 @@ class SimpleForm extends Component {
       }
     });
 
+    this.updateData(record);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { record } = this.props;
+    if (nextProps.record && !isEqual(record, nextProps.record)) {
+      this.updateData(nextProps.record);
+    }
+  }
+
+  updateData = (record) => {
+    const { form: { setFieldsValue, getFieldsValue } } = this.props;
     const initValues = mapValues(record || {}, (value, source) => {
       const format = get(this.formats, source);
       return format ? format(value) : value;
@@ -56,7 +69,7 @@ class SimpleForm extends Component {
     const fields = getFieldsValue();
 
     setFieldsValue(pickBy(initValues, (value, key) => has(fields, key)));
-  }
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
