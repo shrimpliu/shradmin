@@ -28,7 +28,7 @@ class Admin extends Component {
 
   render() {
 
-    const { locale, appLayout, title, menu, dashboard, userMenu, appBar, children } = this.props;
+    const { locale, appLayout, title, menu, dashboard, userMenu, appBar, children, customRoutes } = this.props;
 
     const models = React.Children.map(children, ({props}) => props) || [];
 
@@ -49,6 +49,7 @@ class Admin extends Component {
                 routes: React.createElement(Routes, {
                   models,
                   dashboard: dashboard || Dashboard,
+                  customRoutes,
                 }),
                 title,
               })} />
@@ -75,6 +76,7 @@ Admin.propTypes = {
   menu: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   dashboard: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   restClient: PropTypes.func,
+  customRoutes: PropTypes.array,
 };
 
 export default Admin;
