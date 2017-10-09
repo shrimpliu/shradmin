@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import mapValues from 'lodash/mapValues';
 import get from 'lodash/get';
+import pickBy from 'lodash/pickBy';
+import has from 'lodash/has';
 import inflection from 'inflection';
 import { Form, Button } from 'antd';
 const FormItem = Form.Item;
@@ -33,13 +35,27 @@ const defaultParse = value => value;
 class SimpleForm extends Component {
 
   componentDidMount() {
+
+    const { record, form: { setFieldsValue, getFieldsValue } } = this.props;
+
     this.parses = {};
+    this.formats = {};
     React.Children.forEach(this.props.children, (child) => {
       if (child) {
-        const {source, parse} = child.props;
+        const { source, parse, format } = child.props;
         this.parses[source] = parse || defaultParse;
+        this.formats[source] = format || defaultFormat;
       }
     });
+
+    const initValues = mapValues(record || {}, (value, source) => {
+      const format = get(this.formats, source);
+      return format ? format(value) : value;
+    });
+
+    const fields = getFieldsValue();
+
+    setFieldsValue(pickBy(initValues, (value, key) => has(fields, key)));
   }
 
   handleSubmit = (e) => {
@@ -99,22 +115,4 @@ SimpleForm.propTypes = {
   record: PropTypes.object,
 };
 
-export default Form.create({
-  mapPropsToFields(props) {
-    const formats = {};
-
-    React.Children.forEach(props.children, (child) => {
-      if (child) {
-        const {source, format} = child.props;
-        formats[source] = format || defaultFormat;
-      }
-    });
-
-    return mapValues(props.record || {}, (value, source) => {
-      const format = get(formats, source);
-      return {
-        value: format ? format(value) : value,
-      };
-    });
-  },
-})(SimpleForm);
+export default Form.create()(SimpleForm);
