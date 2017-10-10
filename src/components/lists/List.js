@@ -32,7 +32,8 @@ class List extends Component {
   };
 
   updateData = (requestParams) => {
-    const { model } = this.props;
+    const { model, filter } = this.props;
+    requestParams._filter = { ...requestParams._filter, ...filter };
     actions[model].getList(requestParams);
   };
 
@@ -91,6 +92,7 @@ List.propTypes = {
   translate: PropTypes.func,
   params: PropTypes.object,
   total: PropTypes.number,
+  filter: PropTypes.object,
 };
 
 List.defaultProps = {
