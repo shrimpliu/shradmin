@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
-import FiltersFrom from './FiltersForm';
+import FiltersForm from './FiltersForm';
 
 class Filters extends Component {
 
   setFilters = debounce(filters => {
     if (!isEqual(this.props.values, filters)) {
-      this.props.setParams({_filter: filters});
+      this.props.setParams({_filter: filters, _page: 1});
     }
   }, this.props.debounce);
 
@@ -18,7 +18,7 @@ class Filters extends Component {
 
     return (
       <div style={elStyle}>
-        <FiltersFrom setFilters={this.setFilters} {...this.props}/>
+        <FiltersForm setFilters={this.setFilters} {...this.props}/>
       </div>
     );
   }
