@@ -14,7 +14,7 @@ class BelongsToField extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.record.id, nextProps.record.id)) {
+    if (!isEqual(this.props.record, nextProps.record)) {
       this.updateData(nextProps);
     }
   }
