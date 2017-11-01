@@ -47,7 +47,7 @@ class Login extends Component {
     return(
       <div style={styles.container}>
         <Card title={<Title translate={translate} />} style={styles.card}>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <FormItem hasFeedback>
               {getFieldDecorator('username', {
                 rules: [{
@@ -67,7 +67,7 @@ class Login extends Component {
               )}
             </FormItem>
             <Row>
-              <Button size="large" type="primary" loading={loading} onClick={this.handleSubmit} style={styles.button}>
+              <Button size="large" type="primary" htmlType="submit" loading={loading} onClick={this.handleSubmit} style={styles.button}>
                 {translate("auth.login")}
               </Button>
             </Row>
