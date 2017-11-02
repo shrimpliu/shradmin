@@ -21,7 +21,9 @@ class BelongsToField extends Component {
 
   updateData = (props) => {
     const { relatedId, related } = props;
-    actions[related].getOne(relatedId);
+    if (relatedId) {
+      actions[related].getOne(relatedId);
+    }
   };
 
   render() {
