@@ -28,7 +28,7 @@ class Admin extends Component {
 
   render() {
 
-    const { locale, appLayout, title, menu, dashboard, userMenu, appBar, children, customRoutes } = this.props;
+    const { locale, appLayout, title, menu, dashboard, userMenu, appBar, login, children, customRoutes } = this.props;
 
     const models = React.Children.map(children, ({props}) => props) || [];
 
@@ -37,7 +37,7 @@ class Admin extends Component {
         <Router>
           <div className="shradmin">
             <Switch>
-              <Route exact path="/login" component={Login}/>
+              <Route exact path="/login" component={login}/>
               <Route path="/" render={() => React.createElement(appLayout || Layout, {
                 menu: React.createElement(menu || Menu, {
                   models,
@@ -65,6 +65,7 @@ Admin.defaultProps = {
   locale: "zh",
   messages: {},
   title: "Shradmin",
+  login: Login,
 };
 
 Admin.propTypes = {
