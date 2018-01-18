@@ -1,6 +1,6 @@
 import mirror, { actions } from 'mirrorx';
 import isString from 'lodash/isString';
-import pull from 'lodash/pull';
+import without from 'lodash/without';
 import isFunction from 'lodash/isFunction';
 import { GET_LIST, GET_ONE, CREATE, UPDATE, REMOVE } from '../rest';
 
@@ -66,7 +66,7 @@ export default (model, restClient) => {
         }
       },
       pull(state, id) {
-        pull(state.ids, id);
+        state.ids = without(state.ids, id);
         return state;
       },
     },
