@@ -5,20 +5,21 @@ import { Table } from 'antd';
 
 const DataTable = ({ model, data, children, translate, rowKey, params, total, setParams, ...rest }) => {
 
-  const columns = React.Children.map(children, (child, index) => {
-
-    const { source, columnProps } = child.props;
-
-    return ({
-      title: source ? translate(`models.${model}.fields.${source}`, {_: inflection.humanize(source)}) : "",
-      dataIndex: source,
-      key: index,
-      render: (value, record) => React.cloneElement(child, {
-        record,
-        model,
-      }),
-      ...columnProps,
-    })
+  const columns = [];
+  React.Children.forEach(children, (child, index) => {
+    if (child) {
+      const { source, columnProps } = child.props;
+      columns.push({
+        title: source ? translate(`models.${model}.fields.${source}`, {_: inflection.humanize(source)}) : "",
+        dataIndex: source,
+        key: index,
+        render: (value, record) => React.cloneElement(child, {
+          record,
+          model,
+        }),
+        ...columnProps,
+      });
+    }
   });
 
   const handleChange = (pagination, filters, sorter) => {
