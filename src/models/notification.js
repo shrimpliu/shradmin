@@ -13,16 +13,24 @@ export default {
   initialState: null,
   effects: {
     success(content, getState) {
-      message.success(translate(content, getState()));
+      if (content) {
+        message.success(translate(content, getState()));
+      }
     },
     error(content, getState) {
-      message.error(translate(content, getState()));
+      if (content) {
+        message.error(translate(content, getState()));
+      }
     },
     info(content, getState) {
-      message.info(translate(content, getState()));
+      if (content) {
+        message.info(translate(content, getState()));
+      }
     },
     warning(content, getState) {
-      message.warning(translate(content, getState()));
+      if (content) {
+        message.warning(translate(content, getState()));
+      }
     },
   },
 }
