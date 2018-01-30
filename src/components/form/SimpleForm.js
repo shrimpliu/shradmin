@@ -4,6 +4,7 @@ import mapValues from 'lodash/mapValues';
 import get from 'lodash/get';
 import pickBy from 'lodash/pickBy';
 import isEqual from 'lodash/isEqual';
+import isFunction from 'lodash/isFunction';
 import has from 'lodash/has';
 import inflection from 'inflection';
 import { Form, Button } from 'antd';
@@ -32,6 +33,8 @@ const formItemLayout = {
 
 const defaultFormat = value => value;
 const defaultParse = value => value;
+
+let data = {};
 
 class SimpleForm extends Component {
 
@@ -68,7 +71,9 @@ class SimpleForm extends Component {
 
     const fields = getFieldsValue();
 
-    setFieldsValue(pickBy(initValues, (value, key) => has(fields, key)));
+    data = pickBy(initValues, (value, key) => has(fields, key));
+
+    setFieldsValue(data);
   };
 
   handleSubmit = (e) => {
@@ -128,4 +133,14 @@ SimpleForm.propTypes = {
   record: PropTypes.object,
 };
 
-export default Form.create()(SimpleForm);
+export default Form.create({
+  onValuesChange(props, values) {
+    data = { ...data, ...values };
+    if (isFunction(props.onChange)) {
+      props.onChange(data);
+    }
+    if (isFunction(props.onFieldChange)) {
+      props.onFieldChange(values);
+    }
+  }
+})(SimpleForm);
