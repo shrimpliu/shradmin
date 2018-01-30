@@ -30,7 +30,8 @@ const Title = ({translate}) => (
 
 class Login extends Component {
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     const { form: { validateFieldsAndScroll } } = this.props;
     validateFieldsAndScroll((errors, values) => {
       if (errors) {
