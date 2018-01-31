@@ -87,6 +87,7 @@ export default (model, restClient) => {
         try {
           const {data} = await restClient(GET_ONE, model, {id});
           actions[model].addOne(data);
+          return data;
         }  catch (error) {
           handleFetchError(error);
         } finally {
@@ -113,6 +114,7 @@ export default (model, restClient) => {
           if (redirect) {
             actions.routing.push(location);
           }
+          return record;
         } catch (error) {
           handleFetchError(error);
         } finally {
@@ -139,6 +141,7 @@ export default (model, restClient) => {
           if (redirect) {
             actions.routing.push(location);
           }
+          return record;
         } catch (error) {
           handleFetchError(error);
         } finally {
